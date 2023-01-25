@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 class Solution {
     static int count = 0;
@@ -20,7 +18,6 @@ class Solution {
         return count;
     }
 
-    // 1, 2, 7, 6, 4
     private void findDecimal(List<Integer> list) {
         for (int number : list) {
             int count = 1;
@@ -35,10 +32,5 @@ class Solution {
             }
             divide = 0;
         }
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        System.out.println(solution.solution(new int[]{1, 2, 7, 6, 4}));
     }
 }
