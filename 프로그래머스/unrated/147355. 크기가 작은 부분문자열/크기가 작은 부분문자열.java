@@ -9,13 +9,9 @@ class Solution {
         for (int i = 0; i <= t.length() - p.length(); i++) {
             answer.add(new BigInteger(t.substring(i, p.length() + i)));
         }
-        int cnt = 0;
-        for (BigInteger bigInteger : answer) {
-            int i = new BigInteger(p).compareTo(bigInteger);
-            if (i >= 0) {
-                cnt ++;
-            }
-        }
-        return cnt;
+
+        return (int) answer.stream()
+                .filter(value -> new BigInteger(p).compareTo(value) > 0)
+                .count();
     }
 }
