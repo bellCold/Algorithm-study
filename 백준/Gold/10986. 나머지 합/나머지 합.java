@@ -4,24 +4,31 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+
+    public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        long[] dp = new long[n + 1];
+        long[] count = new long[m];
 
-        int sum = 0;
-        int[] count = new int[M];
+        long ans = 0;
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            sum = (sum + Integer.parseInt(st.nextToken())) % M;
-            count[sum]++;
+        for (int i = 1; i <= n; i++) {
+            dp[i] = dp[i - 1] + Long.parseLong(st.nextToken());
+            if (dp[i] % m == 0) {
+                ans++;
+            }
+            count[(int) (dp[i] % m)]++;
         }
-
-        long ans = count[0];
-        for (int i = 0; i < M; i++) {
-            ans += (long) count[i] * (count[i] - 1) / 2;
+        
+        for (int i = 0; i < m; i++) {
+            if (count[i] > 1) {
+                ans += count[i] * (count[i] - 1) / 2;
+            }
         }
         System.out.println(ans);
     }
+
 }
