@@ -36,16 +36,8 @@ class Solution {
                 ans[i] = count;
             } else {
                 ans[i] = -1;
-            } 
+            }
         }
         return ans;
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] solution1 = solution.solution(new String[]{"ABC","BCA"}, new String[]{"CB"});
-        for (int i : solution1) {
-            System.out.println(i);
-        }
     }
 }
