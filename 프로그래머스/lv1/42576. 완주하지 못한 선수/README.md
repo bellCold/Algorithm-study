@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 96 MB, 시간: 86.59 ms
+메모리: 96.5 MB, 시간: 78.71 ms
 
 ### 구분
 
@@ -68,8 +68,6 @@
 <hr>
 
 <p>※ 공지 - 2023년 01월 25일 테스트케이스가 추가되었습니다.</p>
-
-<p><a href="http://hsin.hr/coci/archive/2014_2015/contest2_tasks.pdf" target="_blank" rel="noopener">출처</a></p>
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
