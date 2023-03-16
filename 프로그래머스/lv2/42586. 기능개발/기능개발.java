@@ -9,23 +9,27 @@ class Solution {
         for (int progress : progresses) {
             queue.add(progress);
         }
+
         List<Integer> ans = new ArrayList<>();
-        int arrayCnt = 0;
-        int day = 1;
+
+        int curDay = 1;
+        int arrayCount = 0;
 
         while (!queue.isEmpty()) {
-            int ansCnt = 0;
-            while (!queue.isEmpty() && queue.peek() + (speeds[arrayCnt] * day) >= 100) {
-                queue.poll();
-                arrayCnt++;
-                ansCnt++;
-            }
-            day++;
-            if (ansCnt != 0) {
-                ans.add(ansCnt);
-            }
-        }
 
-        return ans.stream().mapToInt(value -> value).toArray();
+            int completionCount = 0;
+            while (!queue.isEmpty() && speeds[arrayCount] * curDay + queue.peek() >= 100) {
+                queue.poll();
+                completionCount++;
+                arrayCount++;
+            }
+
+            if (completionCount != 0) {
+                ans.add(completionCount);
+            }
+            curDay++;
+        }
+        
+        return ans.stream().mapToInt(Integer::intValue).toArray(); 
     }
 }
