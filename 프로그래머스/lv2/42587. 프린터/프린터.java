@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 class Solution {
     static class Mark {
@@ -10,36 +13,33 @@ class Solution {
             this.y = y;
         }
 
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
     }
 
     public int solution(int[] priorities, int location) {
-        Queue<Mark> marks = new LinkedList<>();
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
+        Queue<Mark> queue = new LinkedList<>();
 
-        for (int i = 0; i < priorities.length; i++) {
-            marks.add(new Mark(priorities[i], i));
-            pq.add(priorities[i]);
+        int temp = 0;
+        for (int priority : priorities) {
+            pq.add(priority);
+            queue.add(new Mark(priority, temp));
+            temp++;
         }
 
-        int cnt = 1;
+        int count = 1;
         while (true) {
-            while (pq.peek() != marks.peek().getX()) {
-                marks.add(marks.poll());
+            while (!pq.isEmpty() && !queue.isEmpty() && queue.peek().x != pq.peek()) {
+                queue.add(queue.poll());
             }
-            if (marks.peek().getY() == location) {
+            if (queue.peek().y != location) {
+                pq.poll();
+                queue.poll();
+                count++;
+            } else {
                 break;
             }
-            marks.poll();
-            pq.poll();
-            cnt++;
         }
-        return cnt;
+        return count;
+
     }
 }
