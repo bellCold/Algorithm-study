@@ -1,10 +1,17 @@
 class Solution {
     boolean solution(String str) {
-        int cntUnpair = 0;
-        for (char ch : str.toCharArray()) {
-            cntUnpair += ch == '(' ? 1 : -1;
-            if (cntUnpair < 0) return false;
+        int flag = 0;
+        for (char c : str.toCharArray()) {
+            if (c == ')') {
+                flag--;
+            } else {
+                flag++;
+            }
+            if (flag == -1) {
+                return false;
+            }
         }
-        return cntUnpair == 0;
+
+        return flag == 0;
     }
 }
