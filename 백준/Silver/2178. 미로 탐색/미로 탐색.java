@@ -9,49 +9,46 @@ public class Main {
 
     static int[][] map;
     static boolean[][] visited;
+
     static int[] dx = new int[]{0, 1, 0, -1};
     static int[] dy = new int[]{1, 0, -1, 0};
-    static int[][] answer;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int row = Integer.parseInt(st.nextToken());
         int col = Integer.parseInt(st.nextToken());
+        int row = Integer.parseInt(st.nextToken());
 
-        map = new int[row + 1][col + 1];
-        visited = new boolean[row + 1][col + 1];
-        answer = new int[row + 1][col + 1];
+        map = new int[col][row];
+        visited = new boolean[col][row];
 
-        for (int i = 1; i < row + 1; i++) {
-            String[] split = br.readLine().split("");
-            for (int j = 1; j < col + 1; j++) {
-                map[i][j] = Integer.parseInt(split[j - 1]);
+        for (int i = 0; i < col; i++) {
+            String[] order = br.readLine().split("");
+            for (int j = 0; j < order.length; j++) {
+                map[i][j] = Integer.parseInt(order[j]);
             }
         }
 
-        bfs(1, 1, map);
-        System.out.println(answer[row][col]);
+        bfs(0, 0);
+
+        System.out.println(map[col - 1][row - 1]);
     }
 
-    private static void bfs(int row, int col, int[][] map) {
+    private static void bfs(int col, int row) {
         Queue<int[]> queue = new LinkedList<>();
-        visited[row][col] = true;
-        queue.add(new int[]{row, col});
-        answer[row][col] = map[row][col];
+        queue.add(new int[]{col, row});
+        visited[col][row] = true;
+
         while (!queue.isEmpty()) {
-            int[] now = queue.poll();
+            int[] curr = queue.poll();
             for (int i = 0; i < 4; i++) {
-                int x = now[0] + dx[i];
-                int y = now[1] + dy[i];
-                if (x >= 0 && x < map.length && y >= 0 && y < map[0].length) {
-                    if (!visited[x][y] && map[x][y] == 1) {
-                        visited[x][y] = true;
-                        map[x][y] = map[now[0]][now[1]] + 1;
-                        answer[x][y] = map[x][y];
-                        queue.add(new int[]{x, y});
-                    }
+                int x = curr[0] + dx[i];
+                int y = curr[1] + dy[i];
+                if (x >= 0 && y >= 0 && x < visited.length && y < visited[0].length && !visited[x][y] && map[x][y] == 1) {
+                    visited[x][y] = true;
+                    map[x][y] = map[curr[0]][curr[1]] + 1;
+                    queue.add(new int[]{x, y});
                 }
             }
         }
