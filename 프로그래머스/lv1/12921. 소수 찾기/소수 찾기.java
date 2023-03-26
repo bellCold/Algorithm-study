@@ -8,7 +8,7 @@ class Solution {
 
         for (int i = 2; i <= n; i++) {
             for (int j = i; j <= n; j = j + i) {
-                if (j != i) {
+                if (j != i ) {
                     ari[j] = 0;
                 }
             }
