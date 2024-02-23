@@ -6,21 +6,22 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int target = Integer.parseInt(st.nextToken());
 
-        int[] array = new int[n];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            array[i] = Integer.parseInt(st.nextToken());
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] split = br.readLine().split(" ");
+        int numCount = Integer.parseInt(split[0]);
+        int index = Integer.parseInt(split[1]);
+        int[] ints = new int[numCount];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        for (int i = 0; i < ints.length; i++) {
+            ints[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(array);
-        System.out.println(array[target - 1]);
+        Arrays.sort(ints);
+
+        System.out.println(ints[index - 1]);
     }
+
 }
-
-
