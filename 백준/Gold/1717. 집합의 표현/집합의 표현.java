@@ -3,24 +3,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-
     static int[] group;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] firstLine = br.readLine().split(" ");
+        String[] split = br.readLine().split(" ");
+        int n = Integer.parseInt(split[0]);
+        int m = Integer.parseInt(split[1]);
 
-        int elementCount = Integer.parseInt(firstLine[0]);
-        int calculatorCount = Integer.parseInt(firstLine[1]);
-
-        group = new int[elementCount + 1];
-
-        for (int i = 0; i < elementCount + 1; i++) {
+        group = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
             group[i] = i;
         }
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < calculatorCount; i++) {
+        for (int i = 0; i < m; i++) {
             String[] order = br.readLine().split(" ");
             int calOrder = Integer.parseInt(order[0]);
             int a = Integer.parseInt(order[1]);
@@ -28,43 +25,38 @@ public class Main {
 
             if (calOrder == 0) {
                 union(a, b);
-            }
-
-            if (calOrder == 1) {
-                if (isSameSubset(a, b)) {
+            } else if (calOrder == 1) {
+                if (isSameGroup(a, b)) {
                     sb.append("YES").append("\n");
                 } else {
                     sb.append("NO").append("\n");
                 }
-
             }
         }
         System.out.println(sb);
-
     }
 
-    private static boolean isSameSubset(int a, int b) {
-        a = find(a);
-        b = find(b);
-        return a == b;
+    private static boolean isSameGroup(int a, int b) {
+        return find(a) == find(b);
     }
 
     private static void union(int a, int b) {
         a = find(a);
         b = find(b);
-
         if (a != b) {
-            group[b] = a;
+            if (a > b) {
+                group[a] = b;
+            } else {
+                group[b] = a;
+            }
         }
-
     }
 
     private static int find(int a) {
-        if (a == group[a]) {
+        if (group[a] == a) {
             return a;
-        } else {
-            return group[a] = find(group[a]);
         }
+        return group[a] = find(group[a]);
     }
 
 }
