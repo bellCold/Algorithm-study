@@ -1,57 +1,55 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class Main {
-    static ArrayList<Integer>[] compare;
-    static int[] height;
-    static List<Integer> answer;
+    static ArrayList<Integer>[] maps;
+    static int[] zeros;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] order = br.readLine().split(" ");
-        int students = Integer.parseInt(order[0]);
-        int compareCount = Integer.parseInt(order[1]);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int studentCount = Integer.parseInt(st.nextToken());
+        int compareCount = Integer.parseInt(st.nextToken());
 
-        compare = new ArrayList[students + 1];
-        height = new int[students + 1];
-        answer = new ArrayList<>();
+        maps = new ArrayList[studentCount + 1];
+        zeros = new int[studentCount + 1];
 
-        for (int i = 1; i < students + 1; i++) {
-            compare[i] = new ArrayList<>();
+        for (int i = 1; i <= studentCount; i++) {
+            maps[i] = new ArrayList<>();
         }
 
         for (int i = 0; i < compareCount; i++) {
-            String[] input = br.readLine().split(" ");
-            int a = Integer.parseInt(input[0]);
-            int b = Integer.parseInt(input[1]);
-            compare[a].add(b);
-            height[b]++;
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            maps[a].add(b);
+            zeros[b]++;
         }
 
         Queue<Integer> queue = new LinkedList<>();
-        for (int i = 1; i < height.length; i++) {
-            if (height[i] == 0) {
+        for (int i = 1; i < zeros.length; i++) {
+            if (zeros[i] == 0) {
                 queue.add(i);
             }
         }
 
+        List<Integer> result = new ArrayList<>();
         while (!queue.isEmpty()) {
-            int now = queue.poll();
-            System.out.print(now + " ");
-            for (Integer integer : compare[now]) {
-                height[integer]--;
-                if (height[integer] == 0) {
-                    queue.offer(integer);
+            int cur = queue.poll();
+            result.add(cur);
+            for (int next : maps[cur]) {
+                zeros[next]--;
+                if (zeros[next] == 0) {
+                    queue.add(next);
                 }
             }
         }
-
+        for (Integer integer : result) {
+            System.out.print(integer + " ");
+        }
     }
 
-
 }
+
